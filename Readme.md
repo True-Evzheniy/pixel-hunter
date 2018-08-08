@@ -1,7 +1,7 @@
 # Личный проект «Пиксель хантер» [![Build status][travis-image]][travis-url]
 
 * Студент: [Евгений Артамонов](https://up.htmlacademy.ru/ecmascript/6/user/92049).
-* Наставник: `Неизвестно`.
+* Наставник: `Keks`.
 
 ---
 
