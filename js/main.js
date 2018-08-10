@@ -58,3 +58,30 @@ const handleKeyup = (event) => {
 renderScreen(ScreenToggler.activeScreen);
 
 document.addEventListener(`keyup`, handleKeyup);
+
+const arrowsTemplate = document.createElement(`template`);
+arrowsTemplate.innerHTML = `
+  <div class="arrows__wrap">
+    <style>
+      .arrows__wrap {
+        position: absolute;
+        top: 95px;
+        left: 50%;
+        margin-left: -56px;
+      }
+      .arrows__btn {
+        background: none;
+        border: 2px solid black;
+        padding: 5px 20px;
+      }
+    </style>
+    <button class="arrows__btn"><-</button>
+    <button class="arrows__btn">-></button>
+  </div>
+`;
+document.body.appendChild(arrowsTemplate.content);
+
+const buttons = Array.from(document.querySelectorAll(`.arrows__btn`));
+
+buttons[0].addEventListener(`click`, () => ScreenToggler.decrease());
+buttons[1].addEventListener(`click`, () => ScreenToggler.increase());
