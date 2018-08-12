@@ -1,5 +1,3 @@
-'use strict';
-
 const screens = [
   `intro`,
   `greeting`,
