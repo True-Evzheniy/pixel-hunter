@@ -1,6 +1,11 @@
 import getElementFromTemplate from "../utils/get-element-from-template";
+import getAnswersHandler from "../utils/answer-handler";
+import renderScreen from "../utils/render-screen";
+import game2screen from "../screens/game-2";
+import handleBackButtonClick from "../utils/back-button-handler";
 
-const template = `
+const getGame1Screen = () => {
+  const template = `
 <header class="header">
   <button class="back">
     <span class="visually-hidden">Вернуться к началу</span>
@@ -58,5 +63,24 @@ const template = `
   </ul>
 </section>
 `;
+  const element = getElementFromTemplate(template);
+  const formElement = element.querySelector(`form`);
 
-export default getElementFromTemplate(template);
+  const showNextScreen = () => {
+    unsubscribe();
+    renderScreen(game2screen);
+  };
+
+  const answersHandler = getAnswersHandler(showNextScreen);
+
+  const unsubscribe = () => {
+    formElement.removeEventListener(`change`, answersHandler);
+  };
+
+  formElement.addEventListener(`change`, answersHandler);
+  handleBackButtonClick(element, unsubscribe);
+
+  return element;
+};
+
+export default getGame1Screen;
