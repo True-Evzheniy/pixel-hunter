@@ -5,6 +5,7 @@ import {should} from 'chai';
 should();
 
 describe(`calculatePoints function`, () => {
+  const wrongAnswer = {type: AnswerTypes.WRONG};
   const normalAnswer = {type: AnswerTypes.NORMAL};
   const fastAnswer = {type: AnswerTypes.FAST};
   const slowAnswer = {type: AnswerTypes.SLOW};
@@ -17,6 +18,7 @@ describe(`calculatePoints function`, () => {
     calculatePoints([normalAnswer], nullLives).should.equal(100);
     calculatePoints([fastAnswer], nullLives).should.equal(150);
     calculatePoints([slowAnswer], nullLives).should.equal(50);
+    calculatePoints([wrongAnswer], nullLives).should.equal(0);
   });
 
   it(`return correct result for every live`, () => {
