@@ -11,3 +11,9 @@ export const Points = {
   [AnswerTypes.NORMAL]: 100,
   [AnswerTypes.WRONG]: 0,
 };
+
+export const TimeIntervals = {
+  BLINK: 5,
+  SLOW: 10,
+  FAST: 20,
+};
