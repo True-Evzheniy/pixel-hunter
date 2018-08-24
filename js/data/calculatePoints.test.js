@@ -1,6 +1,6 @@
 import calculatePoints from "./calculatePoints";
 import {AnswerTypes} from "../constants";
-import {should} from 'chai';
+import {should} from "chai";
 
 should();
 
@@ -12,7 +12,6 @@ describe(`calculatePoints function`, () => {
   const nullLives = 0;
   const oneLive = 1;
   const twoLives = 2;
-
 
   it(`return correct result for every correct answer`, () => {
     calculatePoints([normalAnswer], nullLives).should.equal(100);
