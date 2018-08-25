@@ -2,20 +2,11 @@ import getElementFromTemplate from "../utils/get-element-from-template";
 import renderScreen from "../utils/render-screen";
 import game1Screen from "../screens/game-1";
 import handleBackButtonClick from "../utils/back-button-handler";
+import getHeader from "../templates/header";
 
 const getRulesScreen = () => {
   const template = `
-  <header class="header">
-    <button class="back">
-      <span class="visually-hidden">Вернуться к началу</span>
-      <svg class="icon" width="45" height="45" viewBox="0 0 45 45" fill="#000000">
-        <use xlink:href="img/sprite.svg#arrow-left"></use>
-      </svg>
-      <svg class="icon" width="101" height="44" viewBox="0 0 101 44" fill="#000000">
-        <use xlink:href="img/sprite.svg#logo-small"></use>
-      </svg>
-    </button>
-  </header>
+  ${getHeader()}
   <section class="rules">
     <h2 class="rules__title">Правила</h2>
     <ul class="rules__description">
