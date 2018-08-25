@@ -1,4 +1,4 @@
-import {INITIAL_STATE, MAX_LEVEL, AnswerTypes} from "../constants";
+import {initialState, MAX_LEVEL, AnswerTypes} from "../constants";
 
 const toggleLevel = (answer, {level, lives}) => {
   level++;
@@ -14,7 +14,7 @@ const toggleLevel = (answer, {level, lives}) => {
     return false;
   }
 
-  return Object.assign({}, INITIAL_STATE, {level, lives});
+  return Object.assign({}, initialState, {level, lives});
 };
 
 export default toggleLevel;

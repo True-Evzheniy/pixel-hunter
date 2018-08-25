@@ -18,7 +18,7 @@ export const TimerRanges = {
   FAST: 20
 };
 
-export const INITIAL_STATE = {
+export const initialState = {
   lives: 3,
   level: 1,
   timer: 30,
