@@ -17,3 +17,11 @@ export const TimerRanges = {
   SLOW: 10,
   FAST: 20
 };
+
+export const INITIAL_STATE = {
+  lives: 3,
+  level: 1,
+  timer: 30,
+};
+
+export const MAX_LEVEL = 10;
