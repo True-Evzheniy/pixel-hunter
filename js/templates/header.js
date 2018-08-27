@@ -8,7 +8,7 @@ const getHeader = (state) => {
   const getLives = (currentLives, maxLives) => {
     return new Array(maxLives - currentLives)
       .fill(emptyHeart)
-      .conctat(new Array(currentLives).fill(fullHeart))
+      .concat(new Array(currentLives).fill(fullHeart))
       .join(``);
   };
 
