@@ -3,6 +3,7 @@ import getAnswersHandler from "../utils/answer-handler";
 import handleBackButtonClick from "../utils/back-button-handler";
 import {toggleScreens} from "../data/data";
 import getHeader from "../templates/header";
+import getProgressBar from "../templates/progressBar";
 
 const getTwoOfTwoScreen = (state) => {
   const template = `
@@ -17,7 +18,7 @@ ${getHeader(state)}
         <span>Фото</span>
       </label>
       <label class="game__answer game__answer--paint">
-        <input class="visually-hidden" name="question1" type="radio" value="paint">
+        <input class="visually-hidden" name="question1" type="radio" value="painting">
         <span>Рисунок</span>
       </label>
     </div>
@@ -28,23 +29,12 @@ ${getHeader(state)}
         <span>Фото</span>
       </label>
       <label class="game__answer  game__answer--paint">
-        <input class="visually-hidden" name="question2" type="radio" value="paint">
+        <input class="visually-hidden" name="question2" type="radio" value="painting">
         <span>Рисунок</span>
       </label>
     </div>
   </form>
-  <ul class="stats">
-    <li class="stats__result stats__result--wrong"></li>
-    <li class="stats__result stats__result--slow"></li>
-    <li class="stats__result stats__result--fast"></li>
-    <li class="stats__result stats__result--correct"></li>
-    <li class="stats__result stats__result--unknown"></li>
-    <li class="stats__result stats__result--unknown"></li>
-    <li class="stats__result stats__result--unknown"></li>
-    <li class="stats__result stats__result--unknown"></li>
-    <li class="stats__result stats__result--unknown"></li>
-    <li class="stats__result stats__result--unknown"></li>
-  </ul>
+  ${getProgressBar(state.answers)}
 </section>
 `;
   const element = getElementFromTemplate(template);

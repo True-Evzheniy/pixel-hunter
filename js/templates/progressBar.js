@@ -8,11 +8,13 @@ const statusTemlates = {
   UNKNOWN: `<li class="stats__result stats__result--unknown"></li>`
 };
 
-const getStatusBar = (answers) => {
-  return answers
-    .map((answer) => statusTemlates[answer.type])
-    .concat(new Array(MAX_LEVEL - answers.lengt).fill(statusTemlates.UNKNOWN))
+const getProgressBar = (answers) => {
+  const items = answers
+    .map((answer) => statusTemlates[answer])
+    .concat(new Array(MAX_LEVEL - answers.length).fill(statusTemlates.UNKNOWN))
     .join(``);
+
+  return `<ul class="stats">${items}</ul>`;
 };
 
-export default getStatusBar;
+export default getProgressBar;
