@@ -1,8 +1,7 @@
 import getElementFromTemplate from "../utils/get-element-from-template";
-import renderScreen from "../utils/render-screen";
-import game1Screen from "../screens/game-1";
 import handleBackButtonClick from "../utils/back-button-handler";
 import getHeader from "../templates/header";
+import { renderFirstGameScreen } from "../data/data";
 
 const getRulesScreen = () => {
   const template = `
@@ -44,7 +43,7 @@ const getRulesScreen = () => {
     event.preventDefault();
     unsubscribe();
 
-    renderScreen(game1Screen);
+    renderFirstGameScreen();
   };
 
   const unsubscribe = () => {

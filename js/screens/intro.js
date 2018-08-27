@@ -13,7 +13,7 @@ const getInroScreen = () => {
   const asterisk = element.querySelector(`.intro__asterisk`);
 
   const onAsreriskClick = () => {
-    renderScreen(greetingScreen);
+    renderScreen(greetingScreen());
   };
 
   asterisk.addEventListener(`click`, onAsreriskClick);

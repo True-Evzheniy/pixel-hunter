@@ -1,10 +1,9 @@
 import getElementFromTemplate from "../utils/get-element-from-template";
 import getAnswersHandler from "../utils/answer-handler";
-import renderScreen from "../utils/render-screen";
-import game2screen from "../screens/game-2";
 import handleBackButtonClick from "../utils/back-button-handler";
+import { toggleScreens } from "../data/data";
 
-const getGame1Screen = () => {
+const getTwoOfTwoScreen = (state) => {
   const template = `
 <header class="header">
   <button class="back">
@@ -66,9 +65,9 @@ const getGame1Screen = () => {
   const element = getElementFromTemplate(template);
   const formElement = element.querySelector(`form`);
 
-  const showNextScreen = () => {
+  const showNextScreen = (answer) => {
     unsubscribe();
-    renderScreen(game2screen);
+    toggleScreens(answer, state);
   };
 
   const answersHandler = getAnswersHandler(showNextScreen);
@@ -83,4 +82,4 @@ const getGame1Screen = () => {
   return element;
 };
 
-export default getGame1Screen;
+export default getTwoOfTwoScreen;

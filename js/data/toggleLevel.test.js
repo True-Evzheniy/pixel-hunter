@@ -7,7 +7,8 @@ describe(`toggleLevel`, () => {
     expect(toggleLevel(AnswerTypes.NORMAL, initialState)).to.be.deep.equal({
       level: 2,
       lives: 3,
-      timer: 30
+      timer: 30,
+      answers: [AnswerTypes.NORMAL]
     });
   });
 
@@ -33,7 +34,8 @@ describe(`toggleLevel`, () => {
     expect(toggleLevel(AnswerTypes.WRONG, initialState)).to.be.deep.equal({
       level: 2,
       lives: 2,
-      timer: 30
+      timer: 30,
+      answers: [AnswerTypes.WRONG]
     });
   });
 });

@@ -1,9 +1,8 @@
 import getElementFromTemplate from "../utils/get-element-from-template";
-import renderScreen from "../utils/render-screen";
-import statsScreen from "../screens/stats";
 import handleBackButtonClick from "../utils/back-button-handler";
+import {toggleScreens} from "../data/data";
 
-const getGame3Screen = () => {
+const getOneOfThreeScreen = (state) => {
   const template = `
   <header class="header">
     <button class="back">
@@ -52,15 +51,23 @@ const getGame3Screen = () => {
 
   const element = getElementFromTemplate(template);
   const formElement = element.querySelector(`form`);
+  const images = formElement.querySelectorAll(`img`);
 
-  const showNextScreen = () => {
+  const showNextScreen = (answer) => {
     unsubscribe();
-    renderScreen(statsScreen);
+    toggleScreens(answer, state);
   };
 
   const answerHandler = (event) => {
     if (event.target.tagName === `IMG`) {
-      showNextScreen();
+      const answer = new Array(3).fill(`photo`);
+      images.forEach((img, index) => {
+        if (event.target === img) {
+          answer[index] = `painting`;
+        }
+
+        showNextScreen(answer);
+      });
     }
   };
 
@@ -74,4 +81,4 @@ const getGame3Screen = () => {
   return element;
 };
 
-export default getGame3Screen;
+export default getOneOfThreeScreen;

@@ -7,7 +7,9 @@ const getAnswerHandler = (callback) => (event) => {
   formInputs.forEach((input) => questionNames.add(input.name));
 
   if (checkedInputs.length === questionNames.size) {
-    callback();
+    const answer = checkedInputs.map((input) => input.value);
+
+    callback(answer);
   }
 };
 

@@ -20,7 +20,6 @@ const getHeader = (state) => {
 </div>`;
   }
 
-
   return `
 <header class="header">
   <button class="back">

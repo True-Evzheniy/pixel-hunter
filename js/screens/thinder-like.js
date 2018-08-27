@@ -1,10 +1,9 @@
 import getElementFromTemplate from "../utils/get-element-from-template";
 import getAnswersHandler from "../utils/answer-handler";
-import renderScreen from "../utils/render-screen";
-import game3screen from "../screens/game-3";
 import handleBackButtonClick from "../utils/back-button-handler";
+import {toggleScreens} from "../data/data";
 
-const getGame2Screen = () => {
+const getThinderLikeScreen = (state) => {
   const template = `
   <header class="header">
     <button class="back">
@@ -55,9 +54,9 @@ const getGame2Screen = () => {
   const element = getElementFromTemplate(template);
   const formElement = element.querySelector(`form`);
 
-  const showNextScreen = () => {
+  const showNextScreen = (answer) => {
     unsubscribe();
-    renderScreen(game3screen);
+    toggleScreens(answer, state);
   };
 
   const unsubscribe = () => {
@@ -72,4 +71,4 @@ const getGame2Screen = () => {
   return element;
 };
 
-export default getGame2Screen;
+export default getThinderLikeScreen;

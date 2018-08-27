@@ -1,9 +1,9 @@
 const mainContainer = document.getElementById(`main`);
 
-export default (getScreen) => {
+export default (screen) => {
   while (mainContainer.firstChild) {
     mainContainer.removeChild(mainContainer.firstChild);
   }
 
-  mainContainer.appendChild(getScreen());
+  mainContainer.appendChild(screen);
 };
