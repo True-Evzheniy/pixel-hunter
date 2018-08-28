@@ -10,7 +10,7 @@ const handleBackButtonClick = (element, unsubscribe) => {
     }
 
     arrow.removeEventListener(`click`, onBackButtonClick);
-    renderScreen(greetingScreen);
+    renderScreen(greetingScreen());
   };
 
   arrow.addEventListener(`click`, onBackButtonClick);

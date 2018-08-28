@@ -96,6 +96,7 @@ gulp.task(`js-watch`, [`scripts`], (done) => {
 
 gulp.task(`serve`, [`assemble`], () => {
   server.init({
+    browser: `Google Chrome Canary`,
     server: `./build`,
     notify: false,
     open: true,

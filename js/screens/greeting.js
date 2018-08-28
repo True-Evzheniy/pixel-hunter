@@ -28,7 +28,7 @@ const getGreetingScreen = () => {
   const element = getElementFromTemplate(template);
   const continueArrow = element.querySelector(`.greeting__continue`);
   const onArrowClick = () => {
-    renderScreen(rulesScreen);
+    renderScreen(rulesScreen());
   };
 
   continueArrow.addEventListener(`click`, onArrowClick);
