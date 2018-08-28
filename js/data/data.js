@@ -1,4 +1,4 @@
-import {QuestionTypes, initialState, AnswerTypes} from "../constants";
+import {QuestionTypes, initialState, AnswerTypes, MAX_LEVEL} from "../constants";
 import getOneOfThreeScreen from "../screens/one-of-three";
 import getThinderLikeScreen from "../screens/thinder-like";
 import getTwoOfTwoScreen from "../screens/two-of-two";
@@ -256,6 +256,14 @@ export const isCorrect = (answer, state) => {
   );
 };
 
+export const isFailed = (state) => {
+  return state.lives < 0;
+};
+
+export const isEnded = (state) => {
+  return state.level > MAX_LEVEL;
+};
+
 export const toggleScreens = (answer, state) => {
   const correct = isCorrect(answer, state);
   const answerType = correct
@@ -263,10 +271,11 @@ export const toggleScreens = (answer, state) => {
     : AnswerTypes.WRONG;
   const newState = toggleLevel(answerType, state);
 
-  if (!newState) {
-    renderScreen(getStatsScreen());
+  if (isFailed(newState) || isEnded(newState)) {
+    renderScreen(getStatsScreen(newState));
     return;
   }
+
   const newGameType = questions[newState.level - 1].type;
 
   renderScreen(GameScreens[newGameType](newState));

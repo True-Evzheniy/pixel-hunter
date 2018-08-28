@@ -1,7 +1,7 @@
 import getElementFromTemplate from "../utils/get-element-from-template";
 import handleBackButtonClick from "../utils/back-button-handler";
 import getHeader from "../templates/header";
-import { renderFirstGameScreen } from "../data/data";
+import {renderFirstGameScreen} from "../data/data";
 
 const getRulesScreen = () => {
   const template = `

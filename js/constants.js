@@ -22,7 +22,7 @@ export const initialState = {
   lives: 3,
   level: 1,
   timer: 30,
-  answers: [],
+  answers: []
 };
 
 export const MAX_LEVEL = 10;
@@ -31,4 +31,11 @@ export const QuestionTypes = {
   TWO_OF_TWO: `two-of-two`,
   ONE_OF_THREE: `one-of-three`,
   TINDER_LIKE: `tinder-like`
+};
+
+export const Bonuses = {
+  [AnswerTypes.FAST]: 50,
+  [AnswerTypes.SLOW]: -50,
+  [AnswerTypes.NORMAL]: 100,
+  LIVES: 50
 };
