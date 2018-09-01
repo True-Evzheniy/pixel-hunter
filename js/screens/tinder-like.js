@@ -4,15 +4,24 @@ import handleBackButtonClick from "../utils/back-button-handler";
 import {toggleScreens} from "../data/data";
 import getHeader from "../templates/header";
 import getProgressBar from "../templates/progressBar";
+import resize from "../data/resize";
+import {FrameSize, QuestionTypes} from "../constants";
 
-const getThinderLikeScreen = (state) => {
+const getTinderLikeScreen = (state, level) => {
+  const {question, answers} = level;
+  const {
+    image: {width, height, url}
+  } = answers[0];
+  const size = resize(FrameSize[QuestionTypes.TINDER_LIKE], {width, height});
   const template = `
   ${getHeader(state)}
   <section class="game">
-    <p class="game__task">Угадай, фото или рисунок?</p>
+    <p class="game__task">${question}</p>
     <form class="game__content  game__content--wide">
       <div class="game__option">
-        <img src="http://placehold.it/705x455" alt="Option 1" width="705" height="455">
+        <img src="${url}" alt="Option 1" width="${size.width}" height="${
+  size.height
+}">
         <label class="game__answer  game__answer--photo">
           <input class="visually-hidden" name="question1" type="radio" value="photo">
           <span>Фото</span>
@@ -45,4 +54,4 @@ const getThinderLikeScreen = (state) => {
   return element;
 };
 
-export default getThinderLikeScreen;
+export default getTinderLikeScreen;
