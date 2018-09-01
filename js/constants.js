@@ -39,3 +39,18 @@ export const Bonuses = {
   [AnswerTypes.NORMAL]: 100,
   LIVES: 50
 };
+
+export const FrameSize = {
+  [QuestionTypes.TINDER_LIKE]: {
+    width: 705,
+    height: 455
+  },
+  [QuestionTypes.TWO_OF_TWO]: {
+    width: 486,
+    height: 458
+  },
+  [QuestionTypes.ONE_OF_THREE]: {
+    width: 304,
+    height: 455
+  }
+};

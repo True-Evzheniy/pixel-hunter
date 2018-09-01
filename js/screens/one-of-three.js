@@ -3,22 +3,30 @@ import handleBackButtonClick from "../utils/back-button-handler";
 import {toggleScreens} from "../data/data";
 import getHeader from "../templates/header";
 import getProgressBar from "../templates/progressBar";
+import resize from "../data/resize";
+import {FrameSize, QuestionTypes} from "../constants";
 
-const getOneOfThreeScreen = (state) => {
+const getOption = ({url, width, height}, index) => {
+  const size = resize(FrameSize[QuestionTypes.ONE_OF_THREE], {width, height});
+
+  return `
+  <div class="game__option">
+  <img src="${url}" alt="Option ${index + 1}" width="${size.width}" height="${
+  size.height
+}">
+</div>`;
+};
+
+const getOneOfThreeScreen = (state, level) => {
+  const {answers, question} = level;
   const template = `
   ${getHeader(state)}
   <section class="game">
-    <p class="game__task">Найдите рисунок среди изображений</p>
+    <p class="game__task">${question}</p>
     <form class="game__content  game__content--triple">
-      <div class="game__option">
-        <img src="http://placehold.it/304x455" alt="Option 1" width="304" height="455">
-      </div>
-      <div class="game__option  game__option--selected">
-        <img src="http://placehold.it/304x455" alt="Option 2" width="304" height="455">
-      </div>
-      <div class="game__option">
-        <img src="http://placehold.it/304x455" alt="Option 3" width="304" height="455">
-      </div>
+      ${answers
+        .map((answer, index) => getOption(answer.image, index + 1))
+        .join(``)}
     </form>
     ${getProgressBar(state.answers)}
   </section>

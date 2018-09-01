@@ -1,6 +1,6 @@
 import {QuestionTypes, initialState, AnswerTypes, MAX_LEVEL} from "../constants";
 import getOneOfThreeScreen from "../screens/one-of-three";
-import getThinderLikeScreen from "../screens/thinder-like";
+import getTinderLikeScreen from "../screens/tinder-like";
 import getTwoOfTwoScreen from "../screens/two-of-two";
 import toggleLevel from "./toggleLevel";
 import getCorrectAnswerType from "./getCorrectAnswerType";
@@ -10,7 +10,7 @@ import getStatsScreen from "../screens/stats";
 export const GameScreens = {
   [QuestionTypes.ONE_OF_THREE]: getOneOfThreeScreen,
   [QuestionTypes.TWO_OF_TWO]: getTwoOfTwoScreen,
-  [QuestionTypes.TINDER_LIKE]: getThinderLikeScreen
+  [QuestionTypes.TINDER_LIKE]: getTinderLikeScreen
 };
 
 export const questions = [
@@ -245,7 +245,8 @@ export const questions = [
 ];
 
 export const renderFirstGameScreen = () => {
-  const firstGameScreen = GameScreens[questions[0].type](initialState);
+  const firstLevel = questions[0]
+  const firstGameScreen = GameScreens[firstLevel.type](initialState, firstLevel);
 
   renderScreen(firstGameScreen);
 };
@@ -276,7 +277,7 @@ export const toggleScreens = (answer, state) => {
     return;
   }
 
-  const newGameType = questions[newState.level - 1].type;
+  const newLevel = questions[newState.level - 1];
 
-  renderScreen(GameScreens[newGameType](newState));
+  renderScreen(GameScreens[newLevel.type](newState, newLevel));
 };
