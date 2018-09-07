@@ -1,16 +1,28 @@
-import {QuestionTypes, initialState, AnswerTypes, MAX_LEVEL} from "../constants";
-import getOneOfThreeScreen from "../screens/one-of-three";
-import getTinderLikeScreen from "../screens/tinder-like";
-import getTwoOfTwoScreen from "../screens/two-of-two";
+import {
+  QuestionTypes,
+  initialState,
+  AnswerTypes,
+  MAX_LEVEL
+} from "../constants";
+import TwoOfTwoView from "../screens/two-of-two-view";
 import toggleLevel from "./toggleLevel";
 import getCorrectAnswerType from "./getCorrectAnswerType";
 import renderScreen from "../utils/render-screen";
-import getStatsScreen from "../screens/stats";
+import OneOfThreeView from "../screens/one-of-three-view";
+import ThinderLikeView from "../screens/tinder-like-view";
+import StatsView from "../screens/stats-view";
 
-export const GameScreens = {
-  [QuestionTypes.ONE_OF_THREE]: getOneOfThreeScreen,
-  [QuestionTypes.TWO_OF_TWO]: getTwoOfTwoScreen,
-  [QuestionTypes.TINDER_LIKE]: getTinderLikeScreen
+export const getGameView = (gameViewType, state, level, callback) => {
+  switch (gameViewType) {
+    case QuestionTypes.TWO_OF_TWO:
+      return new TwoOfTwoView(state, level, callback).element;
+    case QuestionTypes.ONE_OF_THREE:
+      return new OneOfThreeView(state, level, callback).element;
+    case QuestionTypes.TINDER_LIKE:
+      return new ThinderLikeView(state, level, callback).element;
+    default:
+      throw new Error(`incorrect type of GameView`);
+  }
 };
 
 export const questions = [
@@ -245,8 +257,13 @@ export const questions = [
 ];
 
 export const renderFirstGameScreen = () => {
-  const firstLevel = questions[0]
-  const firstGameScreen = GameScreens[firstLevel.type](initialState, firstLevel);
+  const firstLevel = questions[0];
+  const firstGameScreen = getGameView(
+      firstLevel.type,
+      initialState,
+      firstLevel,
+      toggleScreens
+  );
 
   renderScreen(firstGameScreen);
 };
@@ -273,11 +290,11 @@ export const toggleScreens = (answer, state) => {
   const newState = toggleLevel(answerType, state);
 
   if (isFailed(newState) || isEnded(newState)) {
-    renderScreen(getStatsScreen(newState));
+    renderScreen(new StatsView(newState).element);
     return;
   }
 
   const newLevel = questions[newState.level - 1];
 
-  renderScreen(GameScreens[newLevel.type](newState, newLevel));
+  renderScreen(getGameView(newLevel.type, newState, newLevel, toggleScreens));
 };

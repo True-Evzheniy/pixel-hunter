@@ -1,9 +1,14 @@
-import getElementFromTemplate from "../utils/get-element-from-template";
-import renderScreen from "../utils/render-screen";
-import rulesScreen from "../screens/rules";
+import AbstractView from "../abstract-view";
 
-const getGreetingScreen = () => {
-  const template = `
+class GreetingView extends AbstractView {
+  constructor(callback) {
+    super();
+    this.callback = callback;
+    this.onArrowClick = this.onArrowClick.bind(this);
+  }
+
+  get template() {
+    return `
   <section class="greeting central--blur">
     <img class="greeting__logo" src="img/logo_ph-big.svg" width="201" height="89" alt="Pixel Hunter">
     <div class="greeting__asterisk asterisk"><span class="visually-hidden">Я просто красивая звёздочка</span>*</div>
@@ -23,17 +28,22 @@ const getGreetingScreen = () => {
         <use xlink:href="img/sprite.svg#arrow-right"></use>
       </svg>
     </button>
-  </section>
-  `;
-  const element = getElementFromTemplate(template);
-  const continueArrow = element.querySelector(`.greeting__continue`);
-  const onArrowClick = () => {
-    renderScreen(rulesScreen());
-  };
+  </section>`;
+  }
 
-  continueArrow.addEventListener(`click`, onArrowClick);
+  bind() {
+    this.continueArrow = this._element.querySelector(`.greeting__continue`);
+    this.continueArrow.addEventListener(`click`, this.onArrowClick);
+  }
 
-  return element;
-};
+  unbind() {
+    this.continueArrow.removeEventListener(`click`, this.onArrowClick);
+  }
 
-export default getGreetingScreen;
+  onArrowClick() {
+    this.unbind();
+    this.callback();
+  }
+}
+
+export default GreetingView;
