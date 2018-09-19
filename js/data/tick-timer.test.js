@@ -1,5 +1,5 @@
 import {should} from "chai";
-import tickTimer from "./tickTimer";
+import tickTimer from "./tick-timer";
 import {initialState} from "../constants";
 
 should();
@@ -7,8 +7,7 @@ should();
 describe(`tickTimer`, () => {
   it(`icrease timer if time more then null`, () => {
     tickTimer(initialState)
-      .should.has.property(`timer`)
-      .equal(29);
+      .should.equal(29);
   });
 
   it(`return false if time less then null`, () => {

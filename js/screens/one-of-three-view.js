@@ -62,8 +62,8 @@ class OneOfThreeView extends AbstractView {
         if (event.target === img) {
           answer[index] = `painting`;
         }
-        this.handleAnswers(answer);
       });
+      this.handleAnswers(answer);
     }
   }
 

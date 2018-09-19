@@ -1,30 +1,3 @@
-import {
-  QuestionTypes,
-  initialState,
-  AnswerTypes,
-  MAX_LEVEL
-} from "../constants";
-import TwoOfTwoView from "../screens/two-of-two-view";
-import toggleLevel from "./toggleLevel";
-import getCorrectAnswerType from "./getCorrectAnswerType";
-import renderScreen from "../utils/render-screen";
-import OneOfThreeView from "../screens/one-of-three-view";
-import ThinderLikeView from "../screens/tinder-like-view";
-import StatsView from "../screens/stats-view";
-
-export const getGameView = (gameViewType, state, level, callback) => {
-  switch (gameViewType) {
-    case QuestionTypes.TWO_OF_TWO:
-      return new TwoOfTwoView(state, level, callback).element;
-    case QuestionTypes.ONE_OF_THREE:
-      return new OneOfThreeView(state, level, callback).element;
-    case QuestionTypes.TINDER_LIKE:
-      return new ThinderLikeView(state, level, callback).element;
-    default:
-      throw new Error(`incorrect type of GameView`);
-  }
-};
-
 export const questions = [
   {
     type: `two-of-two`,
@@ -45,6 +18,20 @@ export const questions = [
           height: 458
         },
         type: `painting`
+      }
+    ]
+  },
+  {
+    type: `tinder-like`,
+    question: `Угадай, фото или рисунок?`,
+    answers: [
+      {
+        image: {
+          url: `http://i.imgur.com/gUeK0qE.jpg`,
+          width: 705,
+          height: 455
+        },
+        type: `photo`
       }
     ]
   },
@@ -75,20 +62,6 @@ export const questions = [
           height: 455
         },
         type: `painting`
-      }
-    ]
-  },
-  {
-    type: `tinder-like`,
-    question: `Угадай, фото или рисунок?`,
-    answers: [
-      {
-        image: {
-          url: `http://i.imgur.com/gUeK0qE.jpg`,
-          width: 705,
-          height: 455
-        },
-        type: `photo`
       }
     ]
   },
@@ -256,45 +229,6 @@ export const questions = [
   }
 ];
 
-export const renderFirstGameScreen = () => {
-  const firstLevel = questions[0];
-  const firstGameScreen = getGameView(
-      firstLevel.type,
-      initialState,
-      firstLevel,
-      toggleScreens
-  );
-
-  renderScreen(firstGameScreen);
-};
-
-export const isCorrect = (answer, state) => {
-  return answer.every(
-      (item, index) => item === questions[state.level - 1].answers[index].type
-  );
-};
-
 export const isFailed = (state) => {
   return state.lives < 0;
-};
-
-export const isEnded = (state) => {
-  return state.level > MAX_LEVEL;
-};
-
-export const toggleScreens = (answer, state) => {
-  const correct = isCorrect(answer, state);
-  const answerType = correct
-    ? getCorrectAnswerType(state.timer)
-    : AnswerTypes.WRONG;
-  const newState = toggleLevel(answerType, state);
-
-  if (isFailed(newState) || isEnded(newState)) {
-    renderScreen(new StatsView(newState).element);
-    return;
-  }
-
-  const newLevel = questions[newState.level - 1];
-
-  renderScreen(getGameView(newLevel.type, newState, newLevel, toggleScreens));
 };
