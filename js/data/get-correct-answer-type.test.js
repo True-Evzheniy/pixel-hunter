@@ -1,4 +1,4 @@
-import getCorrectAnswerType from "./getCorrectAnswerType";
+import getCorrectAnswerType from "./get-correct-answer-type";
 import {AnswerTypes} from "../constants";
 
 describe(`getCorrectAnswerType`, () => {
