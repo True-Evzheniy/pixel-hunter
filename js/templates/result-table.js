@@ -1,4 +1,4 @@
-import getProgressBar from "./progressBar";
+import getProgressBar from "./progress-bar";
 import {AnswerTypes, Bonuses} from "../constants";
 import {isFailed} from "../data/data";
 

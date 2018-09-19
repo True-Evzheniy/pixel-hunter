@@ -3,17 +3,21 @@ import ThinderLikeView from "../screens/tinder-like-view";
 import TwoOfTwoView from "../screens/two-of-two-view";
 import {QuestionTypes, AnswerTypes} from "../constants";
 import renderScreen from "../utils/render-screen";
-import getCorrectAnswerType from "../data/getCorrectAnswerType";
+import getCorrectAnswerType from "../data/get-correct-answer-type";
 import StatsView from "../screens/stats-view";
 import HeaderView from "../templates/header-veiw";
 import getRenderContainer from "../utils/render-container";
+import Application from "../application";
 
 const gameScreen = (model) => {
-  window.model = model;
   const container = getRenderContainer();
   const game = getRenderContainer();
   const header = new HeaderView(model.state);
   let timeout;
+
+  const stopTimeout = () => {
+    clearTimeout(timeout);
+  };
 
   const updateView = (spot, view) => {
     spot.innerHTML = ``;
@@ -21,23 +25,23 @@ const gameScreen = (model) => {
   };
 
   const toggleScreens = (answer) => {
-    clearTimeout(timeout);
-
     const correct = model.isCorrect(answer);
     const answerType = correct
       ? getCorrectAnswerType(model.state.timer)
       : AnswerTypes.WRONG;
 
+    stopTimeout();
     model.toggleLevel(answerType);
 
     if (model.gameOver) {
-      renderScreen(new StatsView(model.state).element);
+      Application.showStats(model);
       return;
     }
-    startTimeout();
+
     header.updateTimer(model.state);
     header.updateLives(model.state);
     updateView(game, getGameView());
+    startTimeout();
   };
 
   const getGameView = () => {
@@ -67,8 +71,12 @@ const gameScreen = (model) => {
     }, 1000);
   };
 
-  startTimeout();
+  header.onBackButton = () => {
+    stopTimeout();
+    Application.showGreeting();
+  };
 
+  startTimeout();
   game.appendChild(firstGameScreen);
   container.appendChild(header.element);
   container.appendChild(game);

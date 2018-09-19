@@ -11,7 +11,7 @@ const rulesScreen = () => {
   const container = getRenderContainer();
   const header = new HeaderView();
 
-  header.onBackButton = Application.showGreetingScreen;
+  header.onBackButton = Application.showGreeting;
 
   rules.onFormSubmit = (event) => {
     event.preventDefault();
