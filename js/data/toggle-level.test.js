@@ -1,4 +1,4 @@
-import toggleLevel from "./toggleLevel";
+import toggleLevel from "./toggle-level";
 import {AnswerTypes, initialState} from "../constants";
 import {expect} from "chai";
 

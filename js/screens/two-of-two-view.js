@@ -1,7 +1,5 @@
 import AbstractView from "../abstract-view";
-import getProgressBar from "../templates/progressBar";
-import resize from "../data/resize";
-import {FrameSize, QuestionTypes} from "../constants";
+import getProgressBar from "../templates/progress-bar";
 import getAnswersHandler from "../utils/answer-handler";
 
 class TwoOfTwoView extends AbstractView {
@@ -14,13 +12,9 @@ class TwoOfTwoView extends AbstractView {
   }
 
   static getOption({url, width, height}, index) {
-    const size = resize(FrameSize[QuestionTypes.TWO_OF_TWO], {width, height});
-
     return `
   <div class="game__option">
-    <img src="${url}" alt="Option ${index}" width="${size.width}" height="${
-  size.height
-}">
+    <img src="${url}" alt="Option ${index}" width="${width}" height="${height}">
     <label class="game__answer game__answer--photo">
       <input class="visually-hidden" name="question${index}" type="radio" value="photo">
       <span>Фото</span>

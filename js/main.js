@@ -1,4 +1,4 @@
 import Application from "./application";
 
-Application.showInto();
+Application.start();
 

@@ -1,6 +1,6 @@
 import {initialState, MAX_LEVEL} from "./constants";
 import {isFailed} from "./data/data";
-import toggleLevel from "./data/toggleLevel";
+import toggleLevel from "./data/toggle-level";
 import tickTimer from "./data/tick-timer";
 
 class GameModel {
