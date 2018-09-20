@@ -7,6 +7,8 @@ import HeaderView from "../templates/header-veiw";
 import getRenderContainer from "../utils/render-container";
 import Application from "../application";
 import ConfirmationView from "./confirmation-view";
+import isDebug from "../utils/is-debug";
+import DebugView from "./debug-view";
 
 const gameScreen = (model) => {
   const container = getRenderContainer();
@@ -14,6 +16,13 @@ const gameScreen = (model) => {
   const header = new HeaderView(model.state);
   const confirmation = new ConfirmationView();
   let timeout;
+  const debug = isDebug();
+  let debugView;
+
+  if (debug) {
+    debugView = new DebugView();
+    document.body.appendChild(debugView.element);
+  }
 
   const stopTimeout = () => {
     clearTimeout(timeout);
@@ -37,21 +46,32 @@ const gameScreen = (model) => {
       Application.showStats(model);
       return;
     }
+    const {state} = model;
 
-    header.updateTimer(model.state);
-    header.updateLives(model.state);
+    header.updateTimer(state);
+    header.updateLives(state);
     updateView(game, getGameView());
     startTimeout();
   };
 
+  const getHint = (level) => {
+    return JSON.stringify(level.answers.map((answer)=> answer.type));
+  };
+
   const getGameView = () => {
-    switch (model.levelType) {
+    const {state, levelData, levelType} = model;
+
+    if (debug) {
+      debugView.show(getHint(levelData));
+    }
+
+    switch (levelType) {
       case QuestionTypes.TWO_OF_TWO:
-        return new TwoOfTwoView(model.state, model.levelData, toggleScreens);
+        return new TwoOfTwoView(state, levelData, toggleScreens);
       case QuestionTypes.ONE_OF_THREE:
-        return new OneOfThreeView(model.state, model.levelData, toggleScreens);
+        return new OneOfThreeView(state, levelData, toggleScreens);
       case QuestionTypes.TINDER_LIKE:
-        return new ThinderLikeView(model.state, model.levelData, toggleScreens);
+        return new ThinderLikeView(state, levelData, toggleScreens);
       default:
         throw new Error(`incorrect type of GameView`);
     }

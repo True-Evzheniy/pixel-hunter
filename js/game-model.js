@@ -1,5 +1,5 @@
 import {initialState, MAX_LEVEL} from "./constants";
-import {isFailed} from "./data/data";
+import {isFailed} from "./utils/is-failed";
 import toggleLevel from "./data/toggle-level";
 import tickTimer from "./data/tick-timer";
 
@@ -45,10 +45,6 @@ class GameModel {
 
   toggleLevel(answerType) {
     this._state = toggleLevel(answerType, this._state);
-  }
-
-  reset() {
-    this._state = GameModel.createInitialState;
   }
 
   tick() {

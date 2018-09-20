@@ -1,6 +1,6 @@
 import AbstractView from "../abstract-view";
 import getResultTable from "../templates/result-table";
-import {isFailed} from "../data/data";
+import {isFailed} from "../utils/is-failed";
 
 class StatsView extends AbstractView {
   constructor(data) {
@@ -15,7 +15,9 @@ class StatsView extends AbstractView {
     return `
       <section class="result">
         <h2 class="result__title">${fail ? `Поражение` : `Победа!`}</h2>
-        ${data.map((state, index) => getResultTable(state, index + 1))}
+        ${data
+          .sort((a, b) => b.date - a.date)
+          .map((state, index) => getResultTable(state, index + 1))}
       </section>`;
   }
 }

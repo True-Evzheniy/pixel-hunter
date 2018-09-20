@@ -54,3 +54,5 @@ export const FrameSize = {
     height: 455
   }
 };
+
+export const DEBUG = `debug`;

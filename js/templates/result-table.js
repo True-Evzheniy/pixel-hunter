@@ -1,6 +1,6 @@
 import getProgressBar from "./progress-bar";
 import {AnswerTypes, Bonuses} from "../constants";
-import {isFailed} from "../data/data";
+import {isFailed} from "../utils/is-failed";
 
 const countResults = ({answers, lives}) => {
   const countBonusesByAnswerType = (userAnswers, answerType) => {
