@@ -1,21 +1,23 @@
 import AbstractView from "../abstract-view";
 import getResultTable from "../templates/result-table";
-import {isFailed} from "../data/data";
+import {isFailed} from "../utils/is-failed";
 
 class StatsView extends AbstractView {
-  constructor(state) {
+  constructor(data) {
     super();
-    this.state = state;
+    this.data = data;
   }
 
   get template() {
-    const {state} = this;
-    const fail = isFailed(state);
+    const {data} = this;
+    const fail = isFailed(data[0]);
 
     return `
       <section class="result">
         <h2 class="result__title">${fail ? `Поражение` : `Победа!`}</h2>
-        ${getResultTable(state)}
+        ${data
+          .sort((a, b) => b.date - a.date)
+          .map((state, index) => getResultTable(state, index + 1))}
       </section>`;
   }
 }

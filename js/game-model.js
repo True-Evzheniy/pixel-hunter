@@ -1,5 +1,5 @@
 import {initialState, MAX_LEVEL} from "./constants";
-import {isFailed} from "./data/data";
+import {isFailed} from "./utils/is-failed";
 import toggleLevel from "./data/toggle-level";
 import tickTimer from "./data/tick-timer";
 
@@ -30,6 +30,10 @@ class GameModel {
     return this._state.level > MAX_LEVEL || isFailed(this._state);
   }
 
+  get player() {
+    return this._name;
+  }
+
   isCorrect(answer) {
     if (!answer) {
       return false;
@@ -41,10 +45,6 @@ class GameModel {
 
   toggleLevel(answerType) {
     this._state = toggleLevel(answerType, this._state);
-  }
-
-  reset() {
-    this._state = GameModel.createInitialState;
   }
 
   tick() {

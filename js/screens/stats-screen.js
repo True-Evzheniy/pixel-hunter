@@ -4,10 +4,10 @@ import HeaderView from "../templates/header-veiw";
 import Application from "../application";
 
 
-const statsScreen = (model) => {
+const statsScreen = (data) => {
   const container = getRenderContainer();
   const header = new HeaderView();
-  const stats = new StatsView(model.state);
+  const stats = new StatsView(data);
 
   header.onBackButton = Application.showGreeting;
 

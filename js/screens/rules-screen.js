@@ -22,11 +22,7 @@ const rulesScreen = () => {
     const {value} = event.target;
     name = value;
 
-    if (value) {
-      rules.button.disabled = false;
-    } else {
-      rules.button.disabled = true;
-    }
+    rules.button.disabled = !value;
   };
 
   container.appendChild(header.element);
