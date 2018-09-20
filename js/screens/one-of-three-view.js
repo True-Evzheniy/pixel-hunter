@@ -1,7 +1,5 @@
 import AbstractView from "../abstract-view";
 import getProgressBar from "../templates/progress-bar";
-import resize from "../data/resize";
-import {FrameSize, QuestionTypes} from "../constants";
 
 class OneOfThreeView extends AbstractView {
   constructor(state, level, callback) {

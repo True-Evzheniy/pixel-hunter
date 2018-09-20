@@ -3,19 +3,19 @@ import getResultTable from "../templates/result-table";
 import {isFailed} from "../data/data";
 
 class StatsView extends AbstractView {
-  constructor(state) {
+  constructor(data) {
     super();
-    this.state = state;
+    this.data = data;
   }
 
   get template() {
-    const {state} = this;
-    const fail = isFailed(state);
+    const {data} = this;
+    const fail = isFailed(data[0]);
 
     return `
       <section class="result">
         <h2 class="result__title">${fail ? `Поражение` : `Победа!`}</h2>
-        ${getResultTable(state)}
+        ${data.map((state, index) => getResultTable(state, index + 1))}
       </section>`;
   }
 }

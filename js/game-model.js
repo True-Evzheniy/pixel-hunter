@@ -30,6 +30,10 @@ class GameModel {
     return this._state.level > MAX_LEVEL || isFailed(this._state);
   }
 
+  get player() {
+    return this._name;
+  }
+
   isCorrect(answer) {
     if (!answer) {
       return false;

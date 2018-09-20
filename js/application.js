@@ -5,61 +5,24 @@ import rulesScreen from "./screens/rules-screen";
 import gameScreen from "./screens/game-screen";
 import statsScreen from "./screens/stats-screen";
 import GameModel from "./game-model";
-import resize from "./data/resize";
+import Loader from "./loader";
+import ErrorView from "./screens/error-view";
+import handleRotate from "./utils/rotate";
 
 
 let questions;
 
-const checkStatus = (response) => {
-  if (response.status >= 200 && response.status < 300) {
-    return response;
-  } else {
-    throw new Error(`${response.status}: ${response.statusText}`);
-  }
-};
-
-const prepareData = (questionsData) => {
-  return new Promise((resolve) => {
-    const imageData = [];
-    const loadedImages = [];
-
-    questionsData.forEach((question) => {
-      question.answers.forEach((answer) => {
-        imageData.push(answer.image);
-      });
-    });
-
-    imageData.forEach((data) => {
-      const image = new Image();
-
-      image.src = data.url;
-      image.onload = () => {
-        loadedImages.push(image);
-        const size = resize(data, image);
-        data.width = size.width;
-        data.height = size.height;
-
-        if (loadedImages.length === imageData.length) {
-          resolve(questionsData);
-        }
-      };
-    });
-  });
-};
 class Application {
   static start() {
     Application.showInto();
-    fetch(`https://es.dump.academy/pixel-hunter/questions`)
-      .then(checkStatus)
-      .then((response) => response.json())
-      .then(prepareData)
+    Loader.loadData()
       .then((data) => (questions = data))
       .then(() => Application.showGreeting())
-      .catch(console.error);
+      .catch(Application.showError);
   }
 
   static showInto() {
-    renderScreen(new IntroView(Application.showGreeting).element);
+    renderScreen(new IntroView(handleRotate).element);
   }
 
   static showGreeting() {
@@ -77,7 +40,13 @@ class Application {
   }
 
   static showStats(model) {
-    renderScreen(statsScreen(model));
+    Loader.saveResult(model.state, model.player)
+      .then(() => Loader.loadResulsts(model.player))
+      .then((res) => renderScreen(statsScreen(res)));
+  }
+
+  static showError(error) {
+    renderScreen(new ErrorView(error).element);
   }
 }
 
