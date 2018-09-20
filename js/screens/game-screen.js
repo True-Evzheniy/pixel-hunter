@@ -6,11 +6,13 @@ import getCorrectAnswerType from "../data/get-correct-answer-type";
 import HeaderView from "../templates/header-veiw";
 import getRenderContainer from "../utils/render-container";
 import Application from "../application";
+import ConfirmationView from "./confirmation-view";
 
 const gameScreen = (model) => {
   const container = getRenderContainer();
   const game = getRenderContainer();
   const header = new HeaderView(model.state);
+  const confirmation = new ConfirmationView();
   let timeout;
 
   const stopTimeout = () => {
@@ -69,9 +71,18 @@ const gameScreen = (model) => {
     }, 1000);
   };
 
+  const handleCloseConfirmation = () => {
+    container.removeChild(confirmation.element);
+    startTimeout();
+  };
+
+  confirmation.onCloseBtnClick = handleCloseConfirmation;
+  confirmation.onCancelBtnClick = handleCloseConfirmation;
+  confirmation.onOkBtnClick = Application.showGreeting;
+
   header.onBackButton = () => {
     stopTimeout();
-    Application.showGreeting();
+    container.appendChild(confirmation.element);
   };
 
   startTimeout();

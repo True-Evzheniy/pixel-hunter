@@ -9,7 +9,6 @@ import Loader from "./loader";
 import ErrorView from "./screens/error-view";
 import handleRotate from "./utils/rotate";
 
-
 let questions;
 
 class Application {
