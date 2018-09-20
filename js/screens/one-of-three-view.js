@@ -14,16 +14,10 @@ class OneOfThreeView extends AbstractView {
   }
 
   static getOption({url, width, height}, index) {
-    const size = resize(FrameSize[QuestionTypes.ONE_OF_THREE], {
-      width,
-      height
-    });
-
     return `
     <div class="game__option">
-    <img src="${url}" alt="Option ${index + 1}" width="${size.width}" height="${
-  size.height
-}">
+    <img src="${url}" alt="Option ${index +
+      1}" width="${width}" height="${height}">
   </div>`;
   }
 

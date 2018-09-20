@@ -2,8 +2,6 @@ import RulesView from "./rules-view";
 import Application from "../application";
 import getRenderContainer from "../utils/render-container";
 import HeaderView from "../templates/header-veiw";
-import GameModel from "../game-model";
-import {questions} from "../data/data";
 
 const rulesScreen = () => {
   let name = ``;
@@ -16,9 +14,8 @@ const rulesScreen = () => {
   rules.onFormSubmit = (event) => {
     event.preventDefault();
     rules.unbind();
-    const model = new GameModel(name, questions);
 
-    Application.showGame(model);
+    Application.showGame(name);
   };
 
   rules.onInputChange = (event) => {

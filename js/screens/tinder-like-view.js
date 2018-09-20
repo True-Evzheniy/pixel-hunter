@@ -1,7 +1,5 @@
 import AbstractView from "../abstract-view";
 import getProgressBar from "../templates/progress-bar";
-import resize from "../data/resize";
-import {FrameSize, QuestionTypes} from "../constants";
 import getAnswersHandler from "../utils/answer-handler";
 
 class ThinderLikeView extends AbstractView {
@@ -18,19 +16,14 @@ class ThinderLikeView extends AbstractView {
     const {
       image: {width, height, url}
     } = answers[0];
-    const size = resize(FrameSize[QuestionTypes.TINDER_LIKE], {
-      width,
-      height
-    });
+
     const {state} = this;
 
     return `<section class="game">
     <p class="game__task">${question}</p>
     <form class="game__content  game__content--wide">
       <div class="game__option">
-        <img src="${url}" alt="Option 1" width="${size.width}" height="${
-  size.height
-}">
+        <img src="${url}" alt="Option 1" width="${width}" height="${height}">
         <label class="game__answer  game__answer--photo">
           <input class="visually-hidden" name="question1" type="radio" value="photo">
           <span>Фото</span>
