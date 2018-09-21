@@ -1,6 +1,6 @@
 import AbstractView from "../abstract-view";
 import getProgressBar from "../templates/progress-bar";
-import {ImageTypes, AnswerTypes, OneOfThreeTypes} from "../constants";
+import {ImageTypes} from "../constants";
 
 class OneOfThreeView extends AbstractView {
   constructor(state, level, callback) {
