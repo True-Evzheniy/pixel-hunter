@@ -28,22 +28,22 @@ class ConfirmationView extends AbstractView {
     this.cancelButton = this._element.querySelector(`.modal__btn--cancel`);
     this.closeButton = this._element.querySelector(`button.modal__close`);
 
-    this.okButton.addEventListener(`click`, this.onOkBtnClick);
-    this.cancelButton.addEventListener(`click`, this.onCancelBtnClick);
-    this.closeButton.addEventListener(`click`, this.onCloseBtnClick);
+    this.okButton.addEventListener(`click`, this.onOkButtonClick);
+    this.cancelButton.addEventListener(`click`, this.onCancelButtonClick);
+    this.closeButton.addEventListener(`click`, this.onCloseButtonClick);
   }
 
   unbind() {
-    this.okButton.removeEventListener(`click`, this.onOkBtnClick);
-    this.cancelButton.removeEventListener(`click`, this.onCancelBtnClick);
-    this.closeButton.removeEventListener(`click`, this.onCloseBtnClick);
+    this.okButton.removeEventListener(`click`, this.onOkButtonClick);
+    this.cancelButton.removeEventListener(`click`, this.onCancelButtonClick);
+    this.closeButton.removeEventListener(`click`, this.onCloseButtonClick);
   }
 
-  onOkBtnClick() {}
+  onOkButtonClick() {}
 
-  onCancelBtnClick() {}
+  onCancelButtonClick() {}
 
-  onCloseBtnClick() {}
+  onCloseButtonClick() {}
 }
 
 export default ConfirmationView;

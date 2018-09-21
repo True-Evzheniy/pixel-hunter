@@ -9,7 +9,7 @@ const statsScreen = (data) => {
   const header = new HeaderView();
   const stats = new StatsView(data);
 
-  header.onBackButton = Application.showGreeting;
+  header.onBackButton = Application.start;
 
   container.appendChild(header.element);
   container.appendChild(stats.element);

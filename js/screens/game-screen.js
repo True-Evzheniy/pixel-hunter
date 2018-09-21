@@ -96,9 +96,9 @@ const gameScreen = (model) => {
     startTimeout();
   };
 
-  confirmation.onCloseBtnClick = handleCloseConfirmation;
-  confirmation.onCancelBtnClick = handleCloseConfirmation;
-  confirmation.onOkBtnClick = Application.showGreeting;
+  confirmation.onCloseButtonClick = handleCloseConfirmation;
+  confirmation.onCancelButtonClick = handleCloseConfirmation;
+  confirmation.onOkButtonClick = Application.start;
 
   header.onBackButton = () => {
     stopTimeout();

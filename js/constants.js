@@ -56,3 +56,8 @@ export const FrameSize = {
 };
 
 export const DEBUG = `debug`;
+
+export const ImageTypes = {
+  PHOTO: `photo`,
+  PAINTING: `painting`
+};

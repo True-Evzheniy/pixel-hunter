@@ -10,14 +10,13 @@ class StatsView extends AbstractView {
 
   get template() {
     const {data} = this;
+    data.sort((a, b) => b.date - a.date);
     const fail = isFailed(data[0]);
 
     return `
       <section class="result">
         <h2 class="result__title">${fail ? `Поражение` : `Победа!`}</h2>
-        ${data
-          .sort((a, b) => b.date - a.date)
-          .map((state, index) => getResultTable(state, index + 1))}
+        ${data.map((state, index) => getResultTable(state, index + 1))}
       </section>`;
   }
 }
