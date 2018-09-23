@@ -37,7 +37,7 @@ class Loader {
         method: `POST`
       };
 
-      const response = fetch(
+      const response = await fetch(
           `${SERVER_URL}/stats/${APP_ID}-${playerName}`,
           options
       );
@@ -50,7 +50,7 @@ class Loader {
 
   async loadResulsts(playerName) {
     try {
-      const response = fetch(`${SERVER_URL}/stats/${APP_ID}-${playerName}`);
+      const response = await fetch(`${SERVER_URL}/stats/${APP_ID}-${playerName}`);
       const data = checkStatus(response);
       const dataJSON = await toJSON(data);
 
