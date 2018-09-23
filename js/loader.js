@@ -13,8 +13,54 @@ const checkStatus = (response) => {
   }
 };
 
-const prepareData = (questionsData) => {
-  return new Promise((resolve) => {
+class Loader {
+  async loadData() {
+    try {
+      const response = await fetch(`${SERVER_URL}/questions`);
+      const data = checkStatus(response);
+      const dataJSON = await toJSON(data);
+
+      const loadedData = await this._preloadData(dataJSON);
+      this.onSuccess(loadedData);
+    } catch (error) {
+      this.onError(error);
+    }
+  }
+
+  async saveResult(data, playerName) {
+    try {
+      const options = {
+        body: JSON.stringify(data),
+        headers: {
+          "Content-Type": `application/json`
+        },
+        method: `POST`
+      };
+
+      const response = fetch(
+          `${SERVER_URL}/stats/${APP_ID}-${playerName}`,
+          options
+      );
+      checkStatus(response);
+      this.loadResulsts(playerName);
+    } catch (error) {
+      this.onError(error);
+    }
+  }
+
+  async loadResulsts(playerName) {
+    try {
+      const response = fetch(`${SERVER_URL}/stats/${APP_ID}-${playerName}`);
+      const data = checkStatus(response);
+      const dataJSON = await toJSON(data);
+
+      this.onSuccess(dataJSON);
+    } catch (error) {
+      this.onError(error);
+    }
+  }
+
+  async _preloadData(questionsData) {
     const imageData = [];
     const loadedImages = [];
 
@@ -24,50 +70,33 @@ const prepareData = (questionsData) => {
       });
     });
 
-    imageData.forEach((data) => {
-      const image = new Image();
+    const preloadImage = (data) => {
+      return new Promise((resolve) => {
+        const image = new Image();
 
-      image.src = data.url;
-      image.onload = () => {
-        loadedImages.push(image);
-        const size = resize(data, image);
-        data.width = size.width;
-        data.height = size.height;
+        image.src = data.url;
+        image.onload = () => {
+          const size = resize(data, image);
+          data.width = size.width;
+          data.height = size.height;
 
-        if (loadedImages.length === imageData.length) {
-          resolve(questionsData);
-        }
-      };
-    });
-  });
-};
-
-class Loader {
-  static loadData() {
-    return fetch(`${SERVER_URL}/questions`)
-        .then(checkStatus)
-        .then((response) => response.json())
-        .then(prepareData);
-  }
-
-  static saveResult(data, playerName) {
-    const options = {
-      body: JSON.stringify(data),
-      headers: {
-        "Content-Type": `application/json`
-      },
-      method: `POST`
+          resolve();
+        };
+      });
     };
 
-    return fetch(`${SERVER_URL}/stats/${APP_ID}-${playerName}`, options)
-        .then(checkStatus);
+    imageData.forEach((data) => {
+      loadedImages.push(preloadImage(data));
+    });
+
+    await Promise.all(loadedImages);
+
+    return questionsData;
   }
 
-  static loadResulsts(playerName) {
-    return fetch(`${SERVER_URL}/stats/${APP_ID}-${playerName}`)
-        .then(checkStatus)
-        .then(toJSON);
-  }
+  onSuccess() {}
+
+  onError() {}
 }
 
 export default Loader;

@@ -13,11 +13,14 @@ let questions;
 
 class Application {
   static start() {
+    const loader = new Loader();
     Application.showInto();
-    Loader.loadData()
-      .then((data) => (questions = data))
-      .then(() => Application.showGreeting())
-      .catch(Application.showError);
+    loader.onSuccess = (data) => {
+      questions = data;
+      Application.showGreeting();
+    };
+    loader.onError = Application.showError;
+    loader.loadData();
   }
 
   static showInto() {
@@ -39,9 +42,11 @@ class Application {
   }
 
   static showStats(model) {
-    Loader.saveResult(model.state, model.player)
-      .then(() => Loader.loadResulsts(model.player))
-      .then((res) => renderScreen(statsScreen(res)));
+    const loader = new Loader();
+
+    loader.saveResult(model.state, model.player);
+    loader.onError = Application.showError;
+    loader.onSuccess = (data) => renderScreen(statsScreen(data));
   }
 
   static showError(error) {

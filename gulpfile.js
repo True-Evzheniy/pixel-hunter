@@ -15,7 +15,7 @@ const sourcemaps = require(`gulp-sourcemaps`);
 const mocha = require(`gulp-mocha`); // Добавим установленный gulp-mocha плагин
 const commonjs = require(`rollup-plugin-commonjs`); // Добавим плагин для работы с `commonjs` модулями
 const babel = require(`rollup-plugin-babel`);
-const resolve = require(`rollup-plugin-node-resolve`);
+const nodeResolve = require(`rollup-plugin-node-resolve`);
 const uglify = require(`gulp-uglify`);
 
 gulp.task(`style`, () => {
@@ -133,7 +133,7 @@ gulp.task(`scripts`, () => {
     .pipe(sourcemaps.init())
     .pipe(rollup({
       plugins: [
-        resolve(),
+        nodeResolve(),
         commonjs(),
         babel({
           babelrc: false,
